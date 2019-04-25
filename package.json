@@ -1,0 +1,30 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "template",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "keywords": [
+    "vuepress",
+    "theme",
+    "material design"
+  ],
+  "dependencies": {
+    "@vssue/api-github-v3": "^0.7.3",
+    "@vuepress/plugin-google-analytics": "^1.0.0-alpha.0",
+    "element-ui": "^2.5.4",
+    "vssue": "^0.7.1",
+    "vuepress-theme-indigo-material": "^1.0.10"
+  },
+  "devDependencies": {
+    "babel-plugin-component": "^1.1.1",
+    "moment": "^2.24.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "vuepress": "^1.0.0-alpha.39",
+    "vuepress-plugin-feed": "^0.1.5",
+    "vuepress-plugin-minimal-analytics": "^0.1.4"
+  }
+}
