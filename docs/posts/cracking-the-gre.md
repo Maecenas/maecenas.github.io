@@ -8,7 +8,7 @@ type: post
 
 ---
 
-申请资料和申请经验在 <a href="https://github.com/Maecenas/Master_US/">Maecenas/Master_US</a> 请各位自取，欢迎关注加星。
+申请资料和申请经验在 <a href="https://github.com/Maecenas/Master_US/">Maecenas/Master_US</a> 请各位自取，欢迎关注加星
 <!-- more -->
 ## TL;DR
 
@@ -23,8 +23,6 @@ GRE 一战 V161 Q169 AW4.0，复习主要用：
 > 模考：[GRE 考满分](https://gre.kmf.com/)  
 > 机经：[考满分_机经](https://github.com/Maecenas/Master_US/tree/master/GRE/%E6%9C%BA%E7%BB%8F/recommended)  
 > 经验：[千张_如何准备 GRE 考试？](https://www.zhihu.com/question/19767285/answer/149894118)  
-
----
 
 ## 考前
 文中提到的书籍都已经整理好放在[公共仓库]了。最后看 GRE Diagnostic Service，填空部分两个 Section 各错一道。
@@ -45,7 +43,7 @@ GRE 一战 V161 Q169 AW4.0，复习主要用：
 
 > 非常可怕的是，我们的信息整理和利用的意识还系统性的停留在对于「书本」和「笔记」实体的迷信阶段。这种实体诚然具有一定的优势，但却完全无法阻挡科技进步的脚步。  
 
-### 单词：
+### 单词
 
 全程使用：
 * 《麟渡兮字彙》：GRE 词汇怎么考？怎么学？怎么查？
@@ -116,8 +114,8 @@ PDF Expert 是我常用的 pdf 阅读软件（结构化阅读的任务现在交�
 
 用来给 PDF 文件增加目录
 
-### Anki <sup>[2](#f2)</sup>
-Anki 是一款开源、跨平台、拓展性强的记忆卡软件。采用基于遗忘曲线的「间隔重复」（Spaced Repetition）算法组织卡片复习。国外视频网站上有大量网友分享他们使用 Anki 快速掌握各种知识/语言的[经验](https://www.youtube.com/watch?v=SFkrLZDhciI)。用过小卡片背单词的一定懂的一个概念「主动召回测试」，在翻到背面之前要求你主动思考、组织语言并表达。选择它准备 GRE 单词有如下考虑：
+### Anki
+Anki <sup>[2](#f2)</sup>是一款开源、跨平台、拓展性强的记忆卡软件。采用基于遗忘曲线的「间隔重复」（Spaced Repetition）算法组织卡片复习。国外视频网站上有大量网友分享他们使用 Anki 快速掌握各种知识/语言的[经验](https://www.youtube.com/watch?v=SFkrLZDhciI)。用过小卡片背单词的一定懂的一个概念「主动召回测试」，在翻到背面之前要求你主动思考、组织语言并表达。选择它准备 GRE 单词有如下考虑：
 
 * 背诵单位精细化：仅仅是词而甚至某个义项，不是一个大 list 一起复习，你每次选择的答案和花费的时间都会被记录，并按此计算复习时间。
 * 复习精细化：卡组按照独立的遗忘率复习，在恰好将忘未忘，记忆效率最大的时间点提醒你复习单词，不做无用功。同样也因为 “Use It or lose it”，督促自己主动学习。牌组有大量的复习参数可以调整。
