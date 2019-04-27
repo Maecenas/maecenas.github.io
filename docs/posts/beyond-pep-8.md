@@ -8,14 +8,13 @@ type: post
 
 ---
 
-Best practices for beautiful intelligible code
+🐍 Best practices for beautiful intelligible code
 
 <!-- more -->
 
-🔗<a href="https://www.youtube.com/watch?v=wf-BqAjZb8M" alt="talk">Raymond Hettinger's professional experience at doing code review and architecture review</a>
+🔗 <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M" alt="talk">Raymond Hettinger's professional experience at doing code review and architecture review</a>
 
 P vs. NP 👉 Pythonic vs. Non-Pythonic!
-
 
 ## How to make use of PEP 8
 1. Golden rule of PEP-8: PEP-8 onto yourself. PEP 8 is style guide, not a law book.

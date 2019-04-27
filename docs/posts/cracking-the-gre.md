@@ -8,7 +8,7 @@ type: post
 
 ---
 
-申请资料和申请经验在 <a href="https://github.com/Maecenas/Master_US/">Maecenas/Master_US</a> 请各位自取，欢迎关注加星
+🎒 申请资料和申请经验在 <a href="https://github.com/Maecenas/Master_US/">Maecenas/Master_US</a> 请各位自取，欢迎关注加星
 <!-- more -->
 ## TL;DR
 

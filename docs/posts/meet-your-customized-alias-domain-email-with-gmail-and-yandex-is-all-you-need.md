@@ -25,7 +25,7 @@ feed:
 # 
 ---
 
-Customized Domain Email = Personal Branding + OpenWeb
+📧 Customized Domain Email = Personal Branding + OpenWeb
 <!-- more -->
 ## Why would you need a domain email?
 
