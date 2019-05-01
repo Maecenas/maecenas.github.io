@@ -3,26 +3,10 @@
 title: Meet your customized alias domain email with Gmail, and Yandex is all you need
 
 date: 2019-02-23 10:45:12
-tags: [Email, Email Hosting, Custom Domain Email, Gmail, Yandex]
+tags: [Email Hosting]
 categories: []
 type: post
 
-feed:
-  enable: true
-  title: Title used in feed
-  description: Description used in feed
-  image: /public/image.png
-  author:
-    -
-      name: Author
-      email: author@doamin.tld
-      link: http://doamin.tld
-  contributor:
-    -
-      name: Contributor
-      email: contributor@doamin.tld
-      link: http://doamin.tld
-# 
 ---
 
 📧 Customized Domain Email = Personal Branding + OpenWeb

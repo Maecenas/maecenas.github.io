@@ -2,7 +2,7 @@
 
 title: No More Explicit process.env
 date: 2018-12-07 17:47:10
-tags: [Node.js, 12 Factor]
+tags: [12 Factor, Node.js]
 categories: []
 type: post
 
