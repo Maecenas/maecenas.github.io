@@ -6,9 +6,18 @@ module.exports = {
     // ['@vuepress/google-analytics', { ga: 'UA-137822405-1' }],
     // ['vuepress-plugin-minimal-analytics', { ga: 'UA-137822405-1' }],
     ['vuepress-plugin-feed', {
-        // canonical_base: 'https://www.shawnxli.com',
-        // posts_directories: ['posts'],
-      }],
+      canonical_base: 'https://www.shawnxli.com',
+      feeds: {
+        rss2: {
+          file_name: "feed.xml",
+        },
+        atom1: {
+          enable: false,
+        },
+        json1: {
+          enable: false,
+        }
+      },
   ],
   title: 'Xiang Li',
   description: 'Serenity, Courage, Wisdom', //网站的描述，它将会以 <meta> 标签渲染到当前页面的 HTML 中,还显示在首页的文章列表上面
@@ -30,7 +39,7 @@ module.exports = {
     }
   },
   markdown: {
-    lineNumbers: true //是否开启文章代码左边的行号显示
+    lineNumbers: false //是否开启文章代码左边的行号显示
   },
   serviceWorker: true,
   themeConfig: {

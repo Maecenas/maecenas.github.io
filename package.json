@@ -24,7 +24,7 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "vuepress": "^1.0.0-alpha.39",
-    "vuepress-plugin-feed": "^0.1.5",
+    "vuepress-plugin-feed": "^0.1.6",
     "vuepress-plugin-minimal-analytics": "^0.1.4"
   }
 }
