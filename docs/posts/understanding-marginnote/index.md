@@ -12,7 +12,7 @@ type: post
 
 <!-- more -->
 
-![“MarginNote”](./motivation.jpg)
+![“MarginNote”](/marginnote-motivation.jpg)
 
 👆 “MarginNote”, literally
 
@@ -99,7 +99,7 @@ MarginNote 为解决碎片知识重组的问题。就像洛克的索引系统一
 
 ## [忙碌时代的读书方法 - 汪丁丁的想法 - 知乎](https://www.zhihu.com/pin/980038458768809984)
 
-![MarginNote example and export](./example-and-export.jpg)
+![MarginNote example and export](/marginnote-example-and-export.jpg)
 
 忙碌时代的读书方法，今天我介绍晚近几个月我使用的一种新的阅读技术，我认为超过目前流传的那些。文献存多了，每一位学者都要建立自己的更好用的检索和阅读方法。我喜欢跨学科研究方法，围绕同一主题同时阅读许多文献。或许我尝试的几十种同类阅读软件里，这一款最佳。
 
@@ -111,4 +111,4 @@ MarginNote 为解决碎片知识重组的问题。就像洛克的索引系统一
 
 ## [行为经济学心智地图 - 汪丁丁的想法 - 知乎](https://www.zhihu.com/pin/968748348639023104)
 
-![MarginNote in the wild - 行为经济学心智地图](./behavioral-economics-mindmap.jpg)
+![MarginNote in the wild - 行为经济学心智地图](/marginnote-behavioral-economics-mindmap.jpg)
