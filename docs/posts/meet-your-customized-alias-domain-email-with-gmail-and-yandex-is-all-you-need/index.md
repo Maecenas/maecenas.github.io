@@ -13,11 +13,11 @@ type: post
 <!-- more -->
 ## Why would you need a domain email?
 
-Surely there’re numerous out-of-the-box email service providers. Why would you want a email at your own domain? It is common for companies to have their unique email account, for branding and managing purposes. For people like you and me, domain email would help your personal branding, and more importantly the free to transfer between mail service providers. Domain email come at zero price, yet paying tribute to the Open Web. I would use my [shawnxli.com](shawnxli.com) and [me@shawnxli.com](mailto:me@shawnxli.com) as example throughout the passage.
+Surely there’re numerous out-of-the-box email service providers. Why would you want an email at your own domain? It is common for companies to have their unique email account, for branding and managing purposes. For people like you and me, domain email would help your personal branding, and more importantly the free to transfer between mail service providers. Domain email comes at zero price, yet paying tribute to the Open Web. I would use my [shawnxli.com](shawnxli.com) and [me@shawnxli.com](mailto:me@shawnxli.com) as an example throughout the passage.
 
 ## Why Yandex?
 
-Yandex is a Russian Google counterpart. Yandex Connect’s email service meet all my expectations: stable, secure, fast, ad-free, domain email, import/export data, email alias, mass storage, calendar, synchronize, push, IMAP, two-step/ two-factor verification, Yubikey, email forward and filtering… even for advanced security features like SPF, DKIM, DMARC support are all there. Offered at $0 for individual.
+Yandex is a Russian Google counterpart. Yandex Connect’s email service meets all my expectations: stable, secure, fast, ad-free, domain email, import/export data, email alias, mass storage, calendar, synchronize, push, IMAP, two-step/ two-factor verification, Yubikey, email forward and filtering… even for advanced security features like SPF, DKIM, DMARC support are all there. Offered at $0 for the individual.
 
 ## 0. Prerequisite
 
@@ -26,24 +26,24 @@ Yandex is a Russian Google counterpart. Yandex Connect’s email service meet al
 
 ## 1. Acting as the main Yandex Account
 
-### 1.1. [Sign-up a main Yandex Account](https://passport.yandex.com/registration)
+### 1.1. [Sign-up the main Yandex Account](https://passport.yandex.com/registration)
 ### 1.2. [Add and verify your domain](https://connect.yandex.com/portal/admin/domains)
 
-First add a DNS TXT record at your domain DNS service provider, delete when the domain is verified.
+First, add a DNS TXT record at your domain DNS service provider, delete when the domain is verified.
 
-Then add a [MX record](https://connect.yandex.com/portal/admin/customization/dns) at your domain DNS service provider
+Then add an [MX record](https://connect.yandex.com/portal/admin/customization/dns) at your domain DNS service provider
 
 ### 1.3. [Create a user account](https://connect.yandex.com/portal/admin/structure)
 
 Taken my account for example:
 
-Email: me@shawnxli.com
-Department: All employees
-Grant admin rights (Optional)
+> Email: me@shawnxli.com
+> Department: All employees
+> Grant admin rights (Optional)
 
 ### 1.4. [Set a catch-all address routing](https://connect.yandex.com/portal/admin/customization/mail)
 
-This is meant to redirected all the emails sent to invalid email addresses on your domain.
+This is meant to redirect all the emails sent to invalid email addresses on your domain.
 
 ## 2. Acting as the user Yandex account
 
