@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <title>Raymond Hettinger - Beyond PEP 8 | Xiang Li</title>
+    <meta name="description" content="Serenity, Courage, Wisdom" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Raymond Hettinger - Beyond PEP 8 | Xiang Li" />
+    <meta property="og:site_name" content="Raymond Hettinger - Beyond PEP 8 | Xiang Li" />
+    <meta property="og:locale" content="en-US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Raymond Hettinger - Beyond PEP 8 | Xiang Li" />
+    <link rel="icon" href="/logo.png">
+  <link rel="alternate" type="application/rss+xml" href="https://www.shawnxli.com/feed.xml" title="Xiang Li RSS Feed">
+    
+    <link rel="preload" href="/assets/css/0.styles.c6694346.css" as="style"><link rel="preload" href="/assets/js/app.5ff18dbc.js" as="script"><link rel="preload" href="/assets/js/2.c6f1ddbf.js" as="script"><link rel="preload" href="/assets/js/14.8b563779.js" as="script"><link rel="preload" href="/assets/js/6.f9e88e1b.js" as="script"><link rel="preload" href="/assets/js/8.00a1cdc9.js" as="script"><link rel="preload" href="/assets/js/12.10fbe92a.js" as="script"><link rel="preload" href="/assets/js/7.e1764cf9.js" as="script"><link rel="preload" href="/assets/js/20.3988b1f4.js" as="script"><link rel="preload" href="/assets/js/13.d0690bb1.js" as="script"><link rel="preload" href="/assets/js/15.f3acec4a.js" as="script"><link rel="prefetch" href="/assets/js/1.6fb287be.js"><link rel="prefetch" href="/assets/js/10.9163646f.js"><link rel="prefetch" href="/assets/js/11.2352cbcb.js"><link rel="prefetch" href="/assets/js/16.bdfab8c0.js"><link rel="prefetch" href="/assets/js/17.4e895afa.js"><link rel="prefetch" href="/assets/js/18.65b7308a.js"><link rel="prefetch" href="/assets/js/19.e5959a72.js"><link rel="prefetch" href="/assets/js/21.7ddabc51.js"><link rel="prefetch" href="/assets/js/22.ff19f1bd.js"><link rel="prefetch" href="/assets/js/23.5a722eda.js"><link rel="prefetch" href="/assets/js/24.9605b46f.js"><link rel="prefetch" href="/assets/js/25.5d1788a1.js"><link rel="prefetch" href="/assets/js/26.e7248ea4.js"><link rel="prefetch" href="/assets/js/5.e90fd7e7.js"><link rel="prefetch" href="/assets/js/9.b867c3b4.js"><link rel="prefetch" href="/assets/js/search.fd4bd03a.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.c6694346.css">
+  </head>
+  <body>
+    <div id="loader-wrapper" style="display: none;opacity:0">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+    <div id="app" data-server-rendered="true"><div style="height:100%;" data-v-9c882d48><section class="el-container main-container" data-v-9c882d48><aside class="el-aside menu" style="width:auto;" data-v-61d071e3 data-v-9c882d48><ul role="menubar" class="menu-wrap el-menu" style="background-color:;" data-v-61d071e3><li data-v-61d071e3><div class="brand-wrap" style="background-image:url(/brand.jpg);" data-v-61d071e3><div class="brand" data-v-61d071e3><a href="/" class="avatar waves-effect waves-circle waves-light router-link-active" data-v-61d071e3><img src="/avatar.jpg" data-v-61d071e3></a> <hgroup class="introduce" data-v-61d071e3><div class="nickname" data-v-61d071e3>Xiang Li</div> <a title="me@shawnxli.com" class="mail" data-v-61d071e3>me@shawnxli.com</a></hgroup></div></div></li> <li role="menuitem" tabindex="-1" class="el-menu-item" style="padding-left:20px;color:;background-color:;" data-v-61d071e3><i class="iconfont icon-home" data-v-61d071e3></i> <span class="item-title" data-v-61d071e3>Home</span></li> <li role="menuitem" tabindex="-1" class="el-menu-item" style="padding-left:20px;color:;background-color:;" data-v-61d071e3><i class="iconfont icon-biaoqian" data-v-61d071e3></i> <span class="item-title" data-v-61d071e3>Tags</span></li> <li role="menuitem" tabindex="-1" class="el-menu-item" style="padding-left:20px;color:;background-color:;" data-v-61d071e3><i class="iconfont icon-aboutme" data-v-61d071e3></i> <span class="item-title" data-v-61d071e3>About</span></li> <li role="menuitem" tabindex="-1" class="el-menu-item" style="padding-left:20px;color:;background-color:;" data-v-61d071e3><a href="https://github.com/Maecenas/" target="_blank" rel="noopener noreferrer" data-v-61d071e3><i class="iconfont icon-github" data-v-61d071e3></i></a> <a href="https://www.linkedin.com/in/shawn-xiang-li/" target="_blank" rel="noopener noreferrer" data-v-61d071e3><i class="iconfont icon-linkedin" data-v-61d071e3></i></a> <!----> <!----> <!----> <a href="https://web.okjike.com/user/6D9DBF2F-1EE0-4515-B087-4A295E4A8EB6/" target="_blank" rel="noopener noreferrer" data-v-61d071e3><i class="iconfont icon-jishufuwu" data-v-61d071e3></i></a> <!----> <a href="/feed.xml" target="_blank" rel="noopener noreferrer" data-v-61d071e3><i class="iconfont icon-rss-square" data-v-61d071e3></i></a></li></ul></aside> <section class="el-container container-warp" data-v-9c882d48><header id="topHeader" class="el-header top-header" style="height:60px;padding-left:260px;" data-v-03687e3a data-v-9c882d48><div class="header-warp el-row is-align-middle el-row--flex" data-v-03687e3a><div class="el-col el-col-12 el-col-xs-7" data-v-03687e3a><div class="el-row is-align-middle el-row--flex" data-v-03687e3a><div class="el-col el-col-2" data-v-03687e3a><button type="button" class="el-button el-button--primary is-circle" data-v-03687e3a><!----><!----><span><i class="iconfont icon-caidan" data-v-03687e3a></i></span></button></div></div></div> <div class="el-col el-col-20 el-col-xs-24" data-v-03687e3a><div class="grid-content bg-purple-light" data-v-03687e3a><div class="el-row is-justify-end is-align-middle el-row--flex" data-v-03687e3a><div class="el-col el-col-13 el-col-xs-24 el-col-sm-21 el-col-md-17 el-col-lg-13" data-v-03687e3a><div aria-haspopup="listbox" role="combobox" aria-owns="el-autocomplete-8212" class="el-autocomplete search-input" data-v-03687e3a><div class="el-input el-input--small el-input--suffix"><!----><input type="text" autocomplete="off" valueKey="value" popperClass="search-popper" placeholder="Search" fetchSuggestions="function () { [native code] }" debounce="300" placement="bottom-start" popperAppendToBody="true" class="el-input__inner"><!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-input__icon el-icon-search search-ico" data-v-03687e3a></i><!----><!----><!----></span><!----></span><!----></div><div role="region" class="el-autocomplete-suggestion el-popper search-popper" style="width:;display:none;"><div class="el-scrollbar"><div class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"><ul class="el-scrollbar__view el-autocomplete-suggestion__list"></ul></div><div class="el-scrollbar__bar is-horizontal"><div class="el-scrollbar__thumb" style="width:0;transform:translateX(0%);ms-transform:translateX(0%);webkit-transform:translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical"><div class="el-scrollbar__thumb" style="height:0;transform:translateY(0%);ms-transform:translateY(0%);webkit-transform:translateY(0%);"></div></div></div></div></div></div></div></div></div></div></header> <main class="el-main my-main" style="margin-left:240px;" data-v-00010c33 data-v-9c882d48><div class="content-header index-header" data-v-b73434f0 data-v-00010c33><div class="container fade-scale in" data-v-b73434f0><h1 id="conentHeader" class="title" data-v-b73434f0>Raymond Hettinger - Beyond PEP 8</h1> <h5 class="subtitle" data-v-b73434f0>Last updated at: May 1, 2019 12:47 PM</h5></div></div> <div data-v-5d54de8a data-v-00010c33><div class="post-content el-row is-justify-center el-row--flex" data-v-5d54de8a><div id="post-card" class="post-card el-col el-col-16 el-col-xs-24 el-col-sm-23 el-col-md-23 el-col-lg-16" data-v-5d54de8a><div class="content default"><p>🐍 Best practices for beautiful intelligible code</p> <p>🔗 <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M" alt="talk">Raymond Hettinger's professional experience at doing code review and architecture review</a></p> <p>P vs. NP 👉 Pythonic vs. Non-Pythonic!</p> <h2 id="how-to-make-use-of-pep-8"><a href="#how-to-make-use-of-pep-8" aria-hidden="true" class="header-anchor">#</a> How to make use of PEP 8</h2> <ol><li>Golden rule of PEP-8: PEP-8 onto yourself. PEP 8 is style guide, not a law book.</li> <li>Care about intelligibility, not simply visually better</li> <li>Transforming (Java) API to pythonic ones</li></ol> <h2 id="why-not-pep-8"><a href="#why-not-pep-8" aria-hidden="true" class="header-anchor">#</a> Why not PEP 8</h2> <ol><li>Code beautifully PEP 8 compliant but bad</li> <li>Distraction from code quality</li> <li>PEP 8-tify would wrap history in case of <code>git blame</code></li></ol> <p>More details can be found in codes comments and talks.</p> <h2 id="p-vs-np-1"><a href="#p-vs-np-1" aria-hidden="true" class="header-anchor">#</a> P vs. NP #1</h2> <p>It just works:</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token comment"># XXX -- Top level review comments:</span>
+<span class="token comment">#</span>
+<span class="token comment"># * Nice exception recovery and logging.</span>
+<span class="token comment">#</span>
+<span class="token comment"># * Please cleanup code formatting.</span>
+<span class="token comment">#   This is a little rough on my eyes.</span>
+<span class="token comment">#</span>
+<span class="token comment"># * Should we use this as template for other</span>
+<span class="token comment">#   short network element scripts?</span>
+<span class="token comment">#</span>
+<span class="token comment"># -- Thanks.   The Boss :-)</span>
+
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">,</span> \
+       jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>Routing<span class="token punctuation">,</span> \
+       jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>RouteInsector
+
+ne<span class="token operator">=</span>jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">(</span> <span class="token string">'171.0.2.45'</span> <span class="token punctuation">)</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    routing_table<span class="token operator">=</span>ne<span class="token punctuation">.</span>getRoutingTable<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># fetch table</span>
+
+<span class="token keyword">except</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>MissingVar<span class="token punctuation">:</span>
+  <span class="token comment"># Record table fault</span>
+  logging<span class="token punctuation">.</span>exception<span class="token punctuation">(</span> <span class="token triple-quoted-string string">'''No routing table found'''</span> <span class="token punctuation">)</span>
+  <span class="token comment"># Undo partial changes</span>
+  ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span> <span class="token triple-quoted-string string">'''rollback'''</span> <span class="token punctuation">)</span>
+
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    num_routes<span class="token operator">=</span>routing_table<span class="token punctuation">.</span>getSize<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment"># determine table size</span>
+    <span class="token keyword">for</span> RToffset <span class="token keyword">in</span> <span class="token builtin">range</span> <span class="token punctuation">(</span> num_routes <span class="token punctuation">)</span><span class="token punctuation">:</span>
+           route<span class="token operator">=</span>routing_table<span class="token punctuation">.</span>getRouteByIndex<span class="token punctuation">(</span> RToffset <span class="token punctuation">)</span>
+           name<span class="token operator">=</span>route<span class="token punctuation">.</span>getName<span class="token punctuation">(</span><span class="token punctuation">)</span>       <span class="token comment"># route name</span>
+           ipaddr<span class="token operator">=</span>route<span class="token punctuation">.</span>getIPAddr<span class="token punctuation">(</span><span class="token punctuation">)</span>          <span class="token comment"># ip address</span>
+           <span class="token keyword">print</span> <span class="token string">&quot;%15s -&gt; %s&quot;</span><span class="token operator">%</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span>ipaddr<span class="token punctuation">)</span> <span class="token comment"># format nicely</span>
+<span class="token keyword">finally</span><span class="token punctuation">:</span>
+    ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span> <span class="token triple-quoted-string string">'''commit'''</span> <span class="token punctuation">)</span> <span class="token comment"># lockin changes</span>
+    ne<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="p-vs-np-2"><a href="#p-vs-np-2" aria-hidden="true" class="header-anchor">#</a> P vs. NP #2</h2> <p>After automated tools for style checking:</p> <div class="language-python extra-class"><pre class="language-python"><code>
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>Routing
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>RouteInsector
+
+ne <span class="token operator">=</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">(</span><span class="token string">'171.0.2.45'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    routing_table <span class="token operator">=</span> ne<span class="token punctuation">.</span>getRoutingTable<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>MissingVar<span class="token punctuation">:</span>
+    logging<span class="token punctuation">.</span>exception<span class="token punctuation">(</span><span class="token string">'No routing table found'</span><span class="token punctuation">)</span>
+    ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'rollback'</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    num_routes <span class="token operator">=</span> routing_table<span class="token punctuation">.</span>getSize<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> RToffset <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num_routes<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        route <span class="token operator">=</span> routing_table<span class="token punctuation">.</span>getRouteByIndex<span class="token punctuation">(</span>RToffset<span class="token punctuation">)</span>
+        name <span class="token operator">=</span> route<span class="token punctuation">.</span>getName<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        ipaddr <span class="token operator">=</span> route<span class="token punctuation">.</span>getIPAddr<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token string">&quot;%15s -&gt; %s&quot;</span> <span class="token operator">%</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span> ipaddr<span class="token punctuation">)</span>
+<span class="token keyword">finally</span><span class="token punctuation">:</span>
+    ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'commit'</span><span class="token punctuation">)</span>
+    ne<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="p-vs-np-3"><a href="#p-vs-np-3" aria-hidden="true" class="header-anchor">#</a> P vs. NP #3</h2> <p>A <em>Pythonista</em>, however, would write elegantly encapsulated template file:</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">from</span> nettools <span class="token keyword">import</span> NetworkElement
+
+<span class="token keyword">with</span> NetworkElement<span class="token punctuation">(</span><span class="token string">'171.0.2.45'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> ne<span class="token punctuation">:</span>
+    <span class="token keyword">for</span> route <span class="token keyword">in</span> ne<span class="token punctuation">.</span>routing_table<span class="token punctuation">:</span>
+        <span class="token keyword">print</span> <span class="token string">&quot;%15s -&gt; %s&quot;</span> <span class="token operator">%</span> <span class="token punctuation">(</span>route<span class="token punctuation">.</span>name<span class="token punctuation">,</span> route<span class="token punctuation">.</span>ipaddr<span class="token punctuation">)</span>
+</code></pre></div><h2 id="p-vs-np-4"><a href="#p-vs-np-4" aria-hidden="true" class="header-anchor">#</a> P vs. NP #4</h2> <p>And that's what's happening under the hood:</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token triple-quoted-string string">''' Pythonic means &quot;coding beautifully in harmony with
+    the language to get the maximum benefits from Python&quot;
+    Learn to recognize non-pythonic APIs and to recognize
+    good code.  Don't get distracted by PEP 8.  Focus
+    first an Pythonic versus NonPython (P vs NP).
+    When needed, write an adapter class to convert from
+    the former to the latter.
+    * Avoid unnecessart packageing in favor of
+      simpler imports
+    * Create custom exceptions
+    * Use properties instaed of getter methods
+    * Create a context manager for recurring
+      set-up and teardown logic
+    * Use magic methods:
+          __len__ instead of getSize()
+          __getitem__ instead of getRouteByIndex()
+          make the table iterable
+    * Add good __repr__ for better dubuggability
+'''</span>
+
+<span class="token comment"># Adapter ###########################################</span>
+
+<span class="token keyword">import</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement
+<span class="token keyword">import</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>Routing
+
+<span class="token keyword">class</span> <span class="token class-name">NetworkElementError</span><span class="token punctuation">(</span>Exception<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span>
+
+<span class="token keyword">class</span> <span class="token class-name">NetworkElement</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ipaddr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>ipaddr <span class="token operator">=</span> ipaddr
+        self<span class="token punctuation">.</span>oldne <span class="token operator">=</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">(</span>ipaddr<span class="token punctuation">)</span>
+
+    @<span class="token builtin">property</span>
+    <span class="token keyword">def</span> <span class="token function">routing_table</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> RoutingTable<span class="token punctuation">(</span>self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>getRoutingTable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>MissingVar<span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> NetworkElementError<span class="token punctuation">(</span><span class="token string">'No routing table found'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__enter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self
+
+    <span class="token keyword">def</span> <span class="token function">__exit__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> exctype<span class="token punctuation">,</span> excinst<span class="token punctuation">,</span> exctb<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> exctype <span class="token operator">==</span> NetworkElementError<span class="token punctuation">:</span>
+            logging<span class="token punctuation">.</span>exception<span class="token punctuation">(</span><span class="token string">'No routing table found'</span><span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'rollback'</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'commit'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__repr__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'%s(%r)'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__name__<span class="token punctuation">,</span> self<span class="token punctuation">.</span>ipaddr<span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">RoutingTable</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> oldrt<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>oldrt <span class="token operator">=</span> oldrt
+
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>oldrt<span class="token punctuation">.</span>getSize<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> index <span class="token operator">&gt;=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> IndexError
+        <span class="token keyword">return</span> Route<span class="token punctuation">(</span>self<span class="token punctuation">.</span>oldrt<span class="token punctuation">.</span>getRouteByIndex<span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Route</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> old_route<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>old_route <span class="token operator">=</span> old_route
+
+    @<span class="token builtin">property</span>
+    <span class="token keyword">def</span> <span class="token function">name</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>old_route<span class="token punctuation">.</span>getName<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    @<span class="token builtin">property</span>
+    <span class="token keyword">def</span> <span class="token function">ipaddr</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>old_route<span class="token punctuation">.</span>getIPAddr<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="p-vs-np-misc1"><a href="#p-vs-np-misc1" aria-hidden="true" class="header-anchor">#</a> P vs. NP #misc1</h2> <p>You can barely read your own code like this:</p> <div class="language-python extra-class"><pre class="language-python"><code>ts<span class="token punctuation">(</span><span class="token string">'obama'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">170</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">0.6</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&gt;=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Whew, that is bright!'</span>
+<span class="token keyword">if</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">&gt;=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Wow, that is light'</span>
+
+<span class="token keyword">def</span> <span class="token function">get_routes</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token string">'Return a dictionary of real-time stock quotes'</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>symbol<span class="token punctuation">:</span> get_quote<span class="token punctuation">(</span>symbol <span class="token keyword">for</span> symbol <span class="token keyword">in</span> args<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> interface<span class="token punctuation">,</span> status <span class="token keyword">in</span> interfaces<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> status <span class="token operator">==</span> <span class="token string">'up'</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span> interface
+</code></pre></div><h2 id="p-vs-np-misc2"><a href="#p-vs-np-misc2" aria-hidden="true" class="header-anchor">#</a> P vs. NP #misc2</h2> <p>…without realizing that you could have done so with “batteries included”:</p> <div class="language-python extra-class"><pre class="language-python"><code>twitter_search<span class="token punctuation">(</span><span class="token string">'obama'</span><span class="token punctuation">,</span> numtweets<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">,</span> retweets<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token builtin">unicode</span><span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+<span class="token keyword">from</span> collections <span class="token keyword">import</span> namedtuple
+
+Color <span class="token operator">=</span> namedtuple<span class="token punctuation">(</span><span class="token string">'Color'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'hue'</span><span class="token punctuation">,</span> <span class="token string">'saturation'</span><span class="token punctuation">,</span> <span class="token string">'luminiosity'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+p <span class="token operator">=</span> Color<span class="token punctuation">(</span><span class="token number">170</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">0.6</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> p<span class="token punctuation">.</span>saturation <span class="token operator">&gt;=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Whew, that is bright!'</span>
+<span class="token keyword">if</span> p<span class="token punctuation">.</span>luminiosity <span class="token operator">&gt;=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Wow, that is light'</span>
+
+<span class="token keyword">def</span> <span class="token function">get_routes</span><span class="token punctuation">(</span><span class="token operator">*</span>symbols<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token string">'Return a dictionary of real-time stock quotes'</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>symbol<span class="token punctuation">:</span> get_quote<span class="token punctuation">(</span>symbol <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> interface<span class="token punctuation">,</span> status <span class="token keyword">in</span> interfaces<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> status<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'up'</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span> interface
+</code></pre></div></div> <span id="footerPost" data-v-5d54de8a></span></div> <div id="post-toc" class="post-toc el-col el-col-6" data-v-5d54de8a><h4 class="catalog-title" data-v-5d54de8a>TOC</h4> <div class="catalog-body" data-v-5d54de8a><ul id="catalog-list" class="catalog-list" data-v-5d54de8a></ul></div></div></div> <div class="post-nav el-row is-justify-space-around el-row--flex" data-v-5d54de8a><div class="post-prev el-col el-col-7" data-v-5d54de8a><div data-v-5d54de8a><a href="/posts/understanding-marginnote/" data-v-5d54de8a><i class="el-icon-arrow-left" data-v-5d54de8a></i> Prev
+        </a> <p class="nav-title" data-v-5d54de8a>MarginNote 理解笔记</p></div></div> <div class="post-next el-col el-col-7 el-col-lg-pull-5" data-v-5d54de8a></div></div> <div class="el-row is-justify-center el-row--flex" data-v-5d54de8a></div> <span data-v-d850aa62 data-v-5d54de8a><button type="button" class="el-button toc-btn el-button--primary is-circle" data-v-d850aa62><!----><!----><span><i class="iconfont icon-service-directory" data-v-d850aa62></i></span></button> <button type="button" class="el-button gotop-btn el-button--primary is-circle" data-v-d850aa62><!----><!----><span><i class="el-icon-arrow-up" data-v-d850aa62></i></span></button></span></div></main></section> <button type="button" class="el-button gotop-btn el-button--primary is-circle" style="display:none;" data-v-5250284b data-v-9c882d48><!----><!----><span><i class="el-icon-arrow-up" data-v-5250284b></i></span></button></section> <footer class="el-footer container-footer" style="height:60px;" data-v-3f70470b data-v-9c882d48><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-137822405-1" data-v-3f70470b></script> <script data-v-3f70470b>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-137822405-1');
+  </script> <div class="footer-warp el-row is-justify-center is-align-center el-row--flex footerMargin" data-v-3f70470b><div class="footer-top el-col el-col-24" data-v-3f70470b><p class="ellipsis" data-v-3f70470b><span data-v-3f70470b><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" data-v-3f70470b>Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a></span></p></div> <div class="footer-bottom el-col el-col-24" data-v-3f70470b><p class="ellipsis" data-v-3f70470b><span data-v-3f70470b>
+          Xiang Li © 
+        </span> <span data-v-3f70470b>
+          Powered by
+          <a href="https://vuepress.vuejs.org/" target="_blank" rel="noopener noreferrer" data-v-3f70470b>VuePress</a>. Theme by
+          <a href="https://github.com/zhhlwd/vuepress-theme-indigo-material" target="_blank" rel="noopener noreferrer" data-v-3f70470b>Indigo Material</a>.
+        </span></p></div></div></footer> <div class="overlay" data-v-9c882d48></div></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.5ff18dbc.js" defer></script><script src="/assets/js/2.c6f1ddbf.js" defer></script><script src="/assets/js/14.8b563779.js" defer></script><script src="/assets/js/6.f9e88e1b.js" defer></script><script src="/assets/js/8.00a1cdc9.js" defer></script><script src="/assets/js/12.10fbe92a.js" defer></script><script src="/assets/js/7.e1764cf9.js" defer></script><script src="/assets/js/20.3988b1f4.js" defer></script><script src="/assets/js/13.d0690bb1.js" defer></script><script src="/assets/js/15.f3acec4a.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Xiang Li</title>
+        <link>https://www.shawnxli.com</link>
+        <description>Serenity, Courage, Wisdom</description>
+        <lastBuildDate>Mon, 06 May 2019 02:53:27 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
+        <item>
+            <title><![CDATA[Raymond Hettinger - Beyond PEP 8]]></title>
+            <link>https://www.shawnxli.com/posts/beyond-pep-8/</link>
+            <guid>https://www.shawnxli.com/posts/beyond-pep-8/</guid>
+            <pubDate>Fri, 09 Feb 2018 10:13:40 GMT</pubDate>
+            <description><![CDATA[<p>🐍 Best practices for beautiful intelligible code</p>
+<!-- more -->
+<p>🔗 <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M" alt="talk">Raymond Hettinger's professional experience at doing code review and architecture review</a></p>
+<p>P vs. NP 👉 Pythonic vs. Non-Pythonic!</p>
+<h2 id="how-to-make-use-of-pep-8"><a class="header-anchor" href="#how-to-make-use-of-pep-8" aria-hidden="true">#</a> How to make use of PEP 8</h2>
+<ol>
+<li>Golden rule of PEP-8: PEP-8 onto yourself. PEP 8 is style guide, not a law book.</li>
+<li>Care about intelligibility, not simply visually better</li>
+<li>Transforming (Java) API to pythonic ones</li>
+</ol>
+<h2 id="why-not-pep-8"><a class="header-anchor" href="#why-not-pep-8" aria-hidden="true">#</a> Why not PEP 8</h2>
+<ol>
+<li>Code beautifully PEP 8 compliant but bad</li>
+<li>Distraction from code quality</li>
+<li>PEP 8-tify would wrap history in case of <code>git blame</code></li>
+</ol>
+<p>More details can be found in codes comments and talks.</p>
+<h2 id="p-vs-np-1"><a class="header-anchor" href="#p-vs-np-1" aria-hidden="true">#</a> P vs. NP #1</h2>
+<p>It just works:</p>
+<!--beforebegin--><div class="language-python extra-class"><!--afterbegin--><pre v-pre class="language-python"><code><span class="token comment"># XXX -- Top level review comments:</span>
+<span class="token comment">#</span>
+<span class="token comment"># * Nice exception recovery and logging.</span>
+<span class="token comment">#</span>
+<span class="token comment"># * Please cleanup code formatting.</span>
+<span class="token comment">#   This is a little rough on my eyes.</span>
+<span class="token comment">#</span>
+<span class="token comment"># * Should we use this as template for other</span>
+<span class="token comment">#   short network element scripts?</span>
+<span class="token comment">#</span>
+<span class="token comment"># -- Thanks.   The Boss :-)</span>
+
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">,</span> \
+       jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>Routing<span class="token punctuation">,</span> \
+       jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>RouteInsector
+
+ne<span class="token operator">=</span>jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">(</span> <span class="token string">'171.0.2.45'</span> <span class="token punctuation">)</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    routing_table<span class="token operator">=</span>ne<span class="token punctuation">.</span>getRoutingTable<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># fetch table</span>
+
+<span class="token keyword">except</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>MissingVar<span class="token punctuation">:</span>
+  <span class="token comment"># Record table fault</span>
+  logging<span class="token punctuation">.</span>exception<span class="token punctuation">(</span> <span class="token triple-quoted-string string">'''No routing table found'''</span> <span class="token punctuation">)</span>
+  <span class="token comment"># Undo partial changes</span>
+  ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span> <span class="token triple-quoted-string string">'''rollback'''</span> <span class="token punctuation">)</span>
+
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    num_routes<span class="token operator">=</span>routing_table<span class="token punctuation">.</span>getSize<span class="token punctuation">(</span><span class="token punctuation">)</span>   <span class="token comment"># determine table size</span>
+    <span class="token keyword">for</span> RToffset <span class="token keyword">in</span> <span class="token builtin">range</span> <span class="token punctuation">(</span> num_routes <span class="token punctuation">)</span><span class="token punctuation">:</span>
+           route<span class="token operator">=</span>routing_table<span class="token punctuation">.</span>getRouteByIndex<span class="token punctuation">(</span> RToffset <span class="token punctuation">)</span>
+           name<span class="token operator">=</span>route<span class="token punctuation">.</span>getName<span class="token punctuation">(</span><span class="token punctuation">)</span>       <span class="token comment"># route name</span>
+           ipaddr<span class="token operator">=</span>route<span class="token punctuation">.</span>getIPAddr<span class="token punctuation">(</span><span class="token punctuation">)</span>          <span class="token comment"># ip address</span>
+           <span class="token keyword">print</span> <span class="token string">"%15s -> %s"</span><span class="token operator">%</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span>ipaddr<span class="token punctuation">)</span> <span class="token comment"># format nicely</span>
+<span class="token keyword">finally</span><span class="token punctuation">:</span>
+    ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span> <span class="token triple-quoted-string string">'''commit'''</span> <span class="token punctuation">)</span> <span class="token comment"># lockin changes</span>
+    ne<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<!--beforeend--></div><!--afterend--><h2 id="p-vs-np-2"><a class="header-anchor" href="#p-vs-np-2" aria-hidden="true">#</a> P vs. NP #2</h2>
+<p>After automated tools for style checking:</p>
+<!--beforebegin--><div class="language-python extra-class"><!--afterbegin--><pre v-pre class="language-python"><code>
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>Routing
+<span class="token keyword">import</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>RouteInsector
+
+ne <span class="token operator">=</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">(</span><span class="token string">'171.0.2.45'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    routing_table <span class="token operator">=</span> ne<span class="token punctuation">.</span>getRoutingTable<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> jnettool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>MissingVar<span class="token punctuation">:</span>
+    logging<span class="token punctuation">.</span>exception<span class="token punctuation">(</span><span class="token string">'No routing table found'</span><span class="token punctuation">)</span>
+    ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'rollback'</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    num_routes <span class="token operator">=</span> routing_table<span class="token punctuation">.</span>getSize<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> RToffset <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num_routes<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        route <span class="token operator">=</span> routing_table<span class="token punctuation">.</span>getRouteByIndex<span class="token punctuation">(</span>RToffset<span class="token punctuation">)</span>
+        name <span class="token operator">=</span> route<span class="token punctuation">.</span>getName<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        ipaddr <span class="token operator">=</span> route<span class="token punctuation">.</span>getIPAddr<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token string">"%15s -> %s"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>name<span class="token punctuation">,</span> ipaddr<span class="token punctuation">)</span>
+<span class="token keyword">finally</span><span class="token punctuation">:</span>
+    ne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'commit'</span><span class="token punctuation">)</span>
+    ne<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<!--beforeend--></div><!--afterend--><h2 id="p-vs-np-3"><a class="header-anchor" href="#p-vs-np-3" aria-hidden="true">#</a> P vs. NP #3</h2>
+<p>A <em>Pythonista</em>, however, would write elegantly encapsulated template file:</p>
+<!--beforebegin--><div class="language-python extra-class"><!--afterbegin--><pre v-pre class="language-python"><code><span class="token keyword">from</span> nettools <span class="token keyword">import</span> NetworkElement
+
+<span class="token keyword">with</span> NetworkElement<span class="token punctuation">(</span><span class="token string">'171.0.2.45'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> ne<span class="token punctuation">:</span>
+    <span class="token keyword">for</span> route <span class="token keyword">in</span> ne<span class="token punctuation">.</span>routing_table<span class="token punctuation">:</span>
+        <span class="token keyword">print</span> <span class="token string">"%15s -> %s"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>route<span class="token punctuation">.</span>name<span class="token punctuation">,</span> route<span class="token punctuation">.</span>ipaddr<span class="token punctuation">)</span>
+</code></pre>
+<!--beforeend--></div><!--afterend--><h2 id="p-vs-np-4"><a class="header-anchor" href="#p-vs-np-4" aria-hidden="true">#</a> P vs. NP #4</h2>
+<p>And that's what's happening under the hood:</p>
+<!--beforebegin--><div class="language-python extra-class"><!--afterbegin--><pre v-pre class="language-python"><code><span class="token triple-quoted-string string">''' Pythonic means "coding beautifully in harmony with
+    the language to get the maximum benefits from Python"
+    Learn to recognize non-pythonic APIs and to recognize
+    good code.  Don't get distracted by PEP 8.  Focus
+    first an Pythonic versus NonPython (P vs NP).
+    When needed, write an adapter class to convert from
+    the former to the latter.
+    * Avoid unnecessart packageing in favor of
+      simpler imports
+    * Create custom exceptions
+    * Use properties instaed of getter methods
+    * Create a context manager for recurring
+      set-up and teardown logic
+    * Use magic methods:
+          __len__ instead of getSize()
+          __getitem__ instead of getRouteByIndex()
+          make the table iterable
+    * Add good __repr__ for better dubuggability
+'''</span>
+
+<span class="token comment"># Adapter ###########################################</span>
+
+<span class="token keyword">import</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement
+<span class="token keyword">import</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>Routing
+
+<span class="token keyword">class</span> <span class="token class-name">NetworkElementError</span><span class="token punctuation">(</span>Exception<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span>
+
+<span class="token keyword">class</span> <span class="token class-name">NetworkElement</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ipaddr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>ipaddr <span class="token operator">=</span> ipaddr
+        self<span class="token punctuation">.</span>oldne <span class="token operator">=</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>NetworkElement<span class="token punctuation">(</span>ipaddr<span class="token punctuation">)</span>
+
+    @<span class="token builtin">property</span>
+    <span class="token keyword">def</span> <span class="token function">routing_table</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> RoutingTable<span class="token punctuation">(</span>self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>getRoutingTable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> jnetool<span class="token punctuation">.</span>tools<span class="token punctuation">.</span>elements<span class="token punctuation">.</span>MissingVar<span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> NetworkElementError<span class="token punctuation">(</span><span class="token string">'No routing table found'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__enter__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self
+
+    <span class="token keyword">def</span> <span class="token function">__exit__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> exctype<span class="token punctuation">,</span> excinst<span class="token punctuation">,</span> exctb<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> exctype <span class="token operator">==</span> NetworkElementError<span class="token punctuation">:</span>
+            logging<span class="token punctuation">.</span>exception<span class="token punctuation">(</span><span class="token string">'No routing table found'</span><span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'rollback'</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>cleanup<span class="token punctuation">(</span><span class="token string">'commit'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>oldne<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__repr__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'%s(%r)'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__name__<span class="token punctuation">,</span> self<span class="token punctuation">.</span>ipaddr<span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">RoutingTable</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> oldrt<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>oldrt <span class="token operator">=</span> oldrt
+
+    <span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>oldrt<span class="token punctuation">.</span>getSize<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> index <span class="token operator">>=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> IndexError
+        <span class="token keyword">return</span> Route<span class="token punctuation">(</span>self<span class="token punctuation">.</span>oldrt<span class="token punctuation">.</span>getRouteByIndex<span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Route</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> old_route<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>old_route <span class="token operator">=</span> old_route
+
+    @<span class="token builtin">property</span>
+    <span class="token keyword">def</span> <span class="token function">name</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>old_route<span class="token punctuation">.</span>getName<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    @<span class="token builtin">property</span>
+    <span class="token keyword">def</span> <span class="token function">ipaddr</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>old_route<span class="token punctuation">.</span>getIPAddr<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<!--beforeend--></div><!--afterend--><h2 id="p-vs-np-misc1"><a class="header-anchor" href="#p-vs-np-misc1" aria-hidden="true">#</a> P vs. NP #misc1</h2>
+<p>You can barely read your own code like this:</p>
+<!--beforebegin--><div class="language-python extra-class"><!--afterbegin--><pre v-pre class="language-python"><code>ts<span class="token punctuation">(</span><span class="token string">'obama'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+
+p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">170</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">0.6</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">>=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Whew, that is bright!'</span>
+<span class="token keyword">if</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">>=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Wow, that is light'</span>
+
+<span class="token keyword">def</span> <span class="token function">get_routes</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token string">'Return a dictionary of real-time stock quotes'</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>symbol<span class="token punctuation">:</span> get_quote<span class="token punctuation">(</span>symbol <span class="token keyword">for</span> symbol <span class="token keyword">in</span> args<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> interface<span class="token punctuation">,</span> status <span class="token keyword">in</span> interfaces<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> status <span class="token operator">==</span> <span class="token string">'up'</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span> interface
+</code></pre>
+<!--beforeend--></div><!--afterend--><h2 id="p-vs-np-misc2"><a class="header-anchor" href="#p-vs-np-misc2" aria-hidden="true">#</a> P vs. NP #misc2</h2>
+<p>…without realizing that you could have done so with “batteries included”:</p>
+<!--beforebegin--><div class="language-python extra-class"><!--afterbegin--><pre v-pre class="language-python"><code>twitter_search<span class="token punctuation">(</span><span class="token string">'obama'</span><span class="token punctuation">,</span> numtweets<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">,</span> retweets<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token builtin">unicode</span><span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+<span class="token keyword">from</span> collections <span class="token keyword">import</span> namedtuple
+
+Color <span class="token operator">=</span> namedtuple<span class="token punctuation">(</span><span class="token string">'Color'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'hue'</span><span class="token punctuation">,</span> <span class="token string">'saturation'</span><span class="token punctuation">,</span> <span class="token string">'luminiosity'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+p <span class="token operator">=</span> Color<span class="token punctuation">(</span><span class="token number">170</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">0.6</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> p<span class="token punctuation">.</span>saturation <span class="token operator">>=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Whew, that is bright!'</span>
+<span class="token keyword">if</span> p<span class="token punctuation">.</span>luminiosity <span class="token operator">>=</span> <span class="token number">0.5</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">'Wow, that is light'</span>
+
+<span class="token keyword">def</span> <span class="token function">get_routes</span><span class="token punctuation">(</span><span class="token operator">*</span>symbols<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token string">'Return a dictionary of real-time stock quotes'</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>symbol<span class="token punctuation">:</span> get_quote<span class="token punctuation">(</span>symbol <span class="token keyword">for</span> symbol <span class="token keyword">in</span> symbols<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token keyword">for</span> interface<span class="token punctuation">,</span> status <span class="token keyword">in</span> interfaces<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> status<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'up'</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span> interface
+</code></pre>
+<!--beforeend--></div><!--afterend-->]]></description>
+        </item>
+        <item>
+            <title><![CDATA[如何准备 GRE 考试]]></title>
+            <link>https://www.shawnxli.com/posts/cracking-the-gre/</link>
+            <guid>https://www.shawnxli.com/posts/cracking-the-gre/</guid>
+            <pubDate>Sat, 02 Feb 2019 17:51:00 GMT</pubDate>
+            <description><![CDATA[<p>🎒 申请资料和申请经验在 <a href="https://github.com/Maecenas/Master_US/">Maecenas/Master_US</a> 请各位自取，欢迎关注加星
+<!-- more --></p>
+<h2 id="tl-dr"><a class="header-anchor" href="#tl-dr" aria-hidden="true">#</a> TL;DR</h2>
+<p>GRE 一战 V161 Q169 AW4.0，复习主要用：</p>
+<blockquote>
+<p>核心：<a href="https://github.com/Maecenas/Master_US/tree/master/GRE/GRE%20Guidance/recommended" target="_blank" rel="noopener noreferrer">GRE Official Guidance<OutboundLink/></a><br>
+单词：<a href="https://github.com/Maecenas/Master_US/tree/master/GRE/%E5%8D%95%E8%AF%8D/recommended/ANKI" target="_blank" rel="noopener noreferrer">用 Anki 准备 GRE<OutboundLink/></a><br>
+填空：<a href="https://github.com/Maecenas/Master_US/blob/master/GRE/%E5%A1%AB%E7%A9%BA/recommended/%E9%BA%9F%E6%B8%A1%E5%85%AE%E5%A1%AB%E7%A9%BA%20(%E6%B0%91%E5%9C%8B103%E5%B9%B412%E6%9C%88%E7%89%88)_%E5%85%A8.pdf" target="_blank" rel="noopener noreferrer">麟渡兮填空<OutboundLink/></a><br>
+阅读：<a href="https://github.com/Maecenas/Master_US/blob/master/GRE/%E9%98%85%E8%AF%BB/recommended/%E9%99%88%E8%99%8E%E5%B9%B3_%E6%96%B0GRE%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A336%E5%A5%97.pdf" target="_blank" rel="noopener noreferrer">陈虎平_新 GRE 阅读理解 36 套<OutboundLink/></a><br>
+阅读：<a href="https://github.com/Maecenas/Master_US/blob/master/GRE/%E9%98%85%E8%AF%BB/recommended/%E6%9D%A8%E9%B9%8FGRE%E9%95%BF%E9%9A%BE%E5%8F%A5.doc" target="_blank" rel="noopener noreferrer">杨鹏_GRE &amp; GMAT 阅读难句教程<OutboundLink/></a><br>
+写作：<a href="https://github.com/Maecenas/Master_US/blob/master/GRE/%E5%86%99%E4%BD%9C/%E6%96%B0GRE%E5%86%99%E4%BD%9C5.5.pdf" target="_blank" rel="noopener noreferrer">新 GRE 写作 5.5<OutboundLink/></a><br>
+模考：<a href="https://gre.kmf.com/" target="_blank" rel="noopener noreferrer">GRE 考满分<OutboundLink/></a><br>
+机经：<a href="https://github.com/Maecenas/Master_US/tree/master/GRE/%E6%9C%BA%E7%BB%8F/recommended" target="_blank" rel="noopener noreferrer">考满分_机经<OutboundLink/></a><br>
+经验：<a href="https://www.zhihu.com/question/19767285/answer/149894118" target="_blank" rel="noopener noreferrer">千张_如何准备 GRE 考试？<OutboundLink/></a></p>
+</blockquote>
+<h2 id="考前"><a class="header-anchor" href="#考前" aria-hidden="true">#</a> 考前</h2>
+<p>文中提到的书籍都已经整理好放在<a href="https://github.com/Maecenas/Master_US/" target="_blank" rel="noopener noreferrer">公共仓库<OutboundLink/></a>了。最后看 GRE Diagnostic Service，填空部分两个 Section 各错一道。</p>
+<p>我是 9月初的 GRE 考试，之前的备考经历有当年四月份的托福一次103分(R30 L29 S19 W25)。读过半本单词书 <em>Word Power Made Easy</em>，人称小白本，和人称韦氏小绿本的 <em>Merriam-Webster’s Vocabulary Builder</em>，与 <a href="http://bbs.gter.net/thread-1510435-1-1.html/" target="_blank" rel="noopener noreferrer">Robin<OutboundLink/></a> 大神大力推荐的 <em>Verbal Advantage</em> 号称江湖三大单词书。这三本书用我的偶像 <a href="https://www.weibo.com/aeneasdido/" target="_blank" rel="noopener noreferrer">@管鑫Sam<OutboundLink/></a> 的话来讲是：</p>
+<blockquote>
+<p>小绿：构建词汇思维、打造深层理解    Merriam-Webster Vocabulary Builder<br>
+小白：转化积极词汇、提升语用意识    Word Power Made Easy<br>
+第三推荐：Verbal Advantage<br>
+三本书都为外国专家所著，语言生动有趣，尤其是小绿，对于构建英语的词汇思维很要帮助。<br>
+三本都更类似内功心法，旨在提高内力、点拨运功法门。</p>
+</blockquote>
+<p>我在<a href="http://bbs.gter.net/" target="_blank" rel="noopener noreferrer">寄托天下<OutboundLink/></a>、<a href="http://www.1point3acres.com/" target="_blank" rel="noopener noreferrer">一亩三分地<OutboundLink/></a>这两个论坛上读了许多经验帖子，最合我心的是一位「语言学爱好者」的<a href="https://www.zhihu.com/question/19767285/answer/149894118/" target="_blank" rel="noopener noreferrer">备考经验<OutboundLink/></a>、对于各种材料的褒贬有拨云见雾之感。和其他备考经验上来就是五遍三十遍的轰炸思路完全不同。遂决定跟着作者的思路复习。</p>
+<p>为了决定了备考过程完全电子化，也因为此错过了解析只有纸质版的阅读36套，主要使用了 Anki 背诵单词和 PDF Expert 读书做题，文章最后会介绍这部分经验。</p>
+<p><a href="https://www.zhihu.com/people/shan-yang-yue/" target="_blank" rel="noopener noreferrer">@山羊月<OutboundLink/></a> 谈到他对实体笔记的<a href="https://www.zhihu.com/question/43663694/answer/103097192/" target="_blank" rel="noopener noreferrer">观点<OutboundLink/></a>：</p>
+<blockquote>
+<p>非常可怕的是，我们的信息整理和利用的意识还系统性的停留在对于「书本」和「笔记」实体的迷信阶段。这种实体诚然具有一定的优势，但却完全无法阻挡科技进步的脚步。</p>
+</blockquote>
+<h3 id="单词"><a class="header-anchor" href="#单词" aria-hidden="true">#</a> 单词</h3>
+<p>全程使用：</p>
+<ul>
+<li>《麟渡兮字彙》：GRE 词汇怎么考？怎么学？怎么查？</li>
+<li>GRE核心词汇考法精析（再要你命 3000）</li>
+<li>新东方佛脚短语表（佛脚词汇表）</li>
+</ul>
+<p>考前一周左右看：</p>
+<ul>
+<li>《麟渡兮字彙》(同反近義)單字彙整（麟渡兮老师：GRE 填空题中的选项只有广义的同义、广义的反义，再也没有第三种了）</li>
+</ul>
+<p>单词在 GRE 考试的备考过程中占了相当大的比例，单词背什么？
+第一轮看中文意思，读英文释义自行理解含义。为什么呢？因为单词很多义项其实是本义、比喻义、引申义之间的关系，在中文里一说你肯定也懂的那种，但是书中的释义很多时候并不能体现这种关系。看了某臣教育大当家琦老师的一节录屏课，老师给了一个单词变体表。词根是他是从三千个词中一个个找出来的，他的结论是统计学意义上有效的吗？奇技淫巧的「词根」脱离了场景全无意义。同近反义在上述都掌握情况下可以看一看，背诵请看整理词表，各类助记垃圾都不要看。</p>
+<p>请记住，要想快速学习英语单词，一定要掌握词根。一个词根在现代英语中的衍生常有十数个单词原型，考虑词性变换，加上前后缀就更多，从词根出发，编织出是语义交织的网。</p>
+<h2 id="填空"><a class="header-anchor" href="#填空" aria-hidden="true">#</a> 填空</h2>
+<p>填空部分推荐《麟渡兮填空》，「陈圣元后继有人，惊世之作，思维方式细分」，含 ETS 官方题目全部翻译。摘几段对我很有启发的观点：</p>
+<blockquote>
+<p>背字彙與做題並進：<br>
+提早做題，熟練解題技巧，同時努力背單字。在查字典 (MW) 上要下苦工，把不 會的單字都查過並仔細弄懂 (包含英文解釋、例句)。</p>
+<p>填空解題邏輯包含以下四個重點：<br>
+句型結構、正反意涵、關鍵字句、刪去法</p>
+<p>就 ETS 出題法則歸納出以下三個解題實戰技巧<br>
+還原選項中的名詞、長選項的簡化、二三格選項刪去法（中性字通常不是答案）</p>
+</blockquote>
+<p>像这样把单词读精的思路，对背了大量单词仍不得要领的我非常有启发。书中的解题思路和技巧更是点拨地透彻，希望大家都能读到这本书。</p>
+<p>节选自 PPII 中的题目都加了删除线，因为担心影响考前模考估分，但是当例子讲解时看看也无妨。书中用到的「删去法 POE」 (Process of Elimination) 来自 《<em>Princeton Review: Cracking the new GRE</em>》 一书，可以补充略读一下介绍 POE 的部分。</p>
+<p>Manhattan 我没有做。试了套 Very Hard 正确率比其他题目低 20%，有网友评论词汇太偏太怪，并且这个自己通过暗示诋毁其他教育机构的方式宣传自己，但也有人说题目的考核方式和内在逻辑是接近 ETS 的。我以为，了解考核逻辑莫过于官方给出的考试资料，我备考时间不多，最后 OG + Verbal + PPO 都没做完，匆匆看了两百道机经就上了考场，Verbal 还是推荐大家多看官方资料。</p>
+<h2 id="阅读"><a class="header-anchor" href="#阅读" aria-hidden="true">#</a> 阅读</h2>
+<p>Verbal 30分钟的时间内，一般建议 10道填空题 10 分钟，10道阅读题20分钟。GRE 阅读同时也是研究生阶段阅读的关键，就是 OG 中所说的「主动阅读」。</p>
+<p>《陈虎平 - 新 GRE 阅读理解 36 套》千张答主评价很高：「分层阅读与笔记法佶屈聱牙，但一旦掌握终身受益」。没有怎么准备阅读，靠管鑫Sam 的外刊精读笔记和平时阅读的功底做下来，考试时阅读错误也不少。读过一本《阅读题源》，将文章结构化的方法对内化、理解文章很有帮助。现在看来也是分层阅读结构法一书的延展。</p>
+<p>《杨鹏 - GRE &amp; GMAT 阅读难句教程》（杨鹏长难句）：把长难句聚集起来这种模式，可以帮助你读某一个句子，但是忽略了上下文的关系，而我们是靠句子逻辑和文章逻辑共同解题的。刚开始看时一直忍受着生理和心理上的不适。把这本书制作成了 Anki 单词卡。<sup><a href="#f1">1</a></sup></p>
+<p>《陈虎平 - 新 GRE 阅读逻辑 10 套》：「简单粗暴刷逻辑。我的建议是先做一套，正确率80%以上就不用继续做了，反之则请你刷完。」</p>
+<p>此外，还看了《花儿 - GRE阅读39+3全攻略》二、三章的题型和解题方法，对阅读思路有一点帮助，切记不要想套入书中的四种模板，不了解文章结构是很难回答出考试的题目的。</p>
+<h2 id="模考-机经"><a class="header-anchor" href="#模考-机经" aria-hidden="true">#</a> 模考 &amp; 机经</h2>
+<p>模考用官方的 PPO 和 GRE 考满分网。</p>
+<p>机经方面，我用的考满分填空1100题和阅读200题，只做了老师整理出的高频部分，中了多道原题。免费的机经质量居然能这么高，推荐不参加培训机构的大家考虑一下。</p>
+<h2 id="数学"><a class="header-anchor" href="#数学" aria-hidden="true">#</a> 数学</h2>
+<p>Math Review 看看，单词和一些没接触过的概念要看看 。
+「OG：看完 Math review 之后把习题做一遍，要是全对就可以不管数学了。」</p>
+<h2 id="写作"><a class="header-anchor" href="#写作" aria-hidden="true">#</a> 写作</h2>
+<p>《新GRE写作5.5》介绍了写作的大致形势，对官方题库所有的 issue 和 argument 提纲给出了「正反合」、「正反散」的模版/思路。看官方范文和要求，自己总结模板。</p>
+<p>在之前的英语辩论课上，整理了部分常见「<a href="https://github.com/Maecenas/Master_US/blob/master/GRE/%E5%86%99%E4%BD%9C/How%20to%20Refute%20Logical%20Fallacies%20and%20Develop%20Reasoning.pdf/" target="_blank" rel="noopener noreferrer">逻辑谬误<OutboundLink/></a>」，也一并发出。</p>
+<p>考前两天，PPO (PPll) 第二套考试 156+170，按照网友分
+享的 PP2 备考经验看来，预期 Verbal 分数在 160 分附近，心里有数，笃定。</p>
+<h2 id="软件经验"><a class="header-anchor" href="#软件经验" aria-hidden="true">#</a> 软件经验</h2>
+<h3 id="pdf-expert"><a class="header-anchor" href="#pdf-expert" aria-hidden="true">#</a> PDF Expert</h3>
+<p>PDF Expert 是我常用的 pdf 阅读软件（结构化阅读的任务现在交给了 MarginNote），能够满足我的几个要求：流畅的标注、标注，检索目录和标注、分割视图同时打开文档和答案/解析，并且同步滚动和阅读。</p>
+<h3 id="pdfdir"><a class="header-anchor" href="#pdfdir" aria-hidden="true">#</a> <a href="https://github.com/chroming/pdfdir/" target="_blank" rel="noopener noreferrer">pdfdir<OutboundLink/></a></h3>
+<p>用来给 PDF 文件增加目录</p>
+<h3 id="anki"><a class="header-anchor" href="#anki" aria-hidden="true">#</a> Anki</h3>
+<p>Anki <sup><a href="#f2">2</a></sup>是一款开源、跨平台、拓展性强的记忆卡软件。采用基于遗忘曲线的「间隔重复」（Spaced Repetition）算法组织卡片复习。国外视频网站上有大量网友分享他们使用 Anki 快速掌握各种知识/语言的<a href="https://www.youtube.com/watch?v=SFkrLZDhciI" target="_blank" rel="noopener noreferrer">经验<OutboundLink/></a>。用过小卡片背单词的一定懂的一个概念「主动召回测试」，在翻到背面之前要求你主动思考、组织语言并表达。选择它准备 GRE 单词有如下考虑：</p>
+<ul>
+<li>背诵单位精细化：仅仅是词而甚至某个义项，不是一个大 list 一起复习，你每次选择的答案和花费的时间都会被记录，并按此计算复习时间。</li>
+<li>复习精细化：卡组按照独立的遗忘率复习，在恰好将忘未忘，记忆效率最大的时间点提醒你复习单词，不做无用功。同样也因为 “Use It or lose it”，督促自己主动学习。牌组有大量的复习参数可以调整。</li>
+<li>筛选方便：考前一天，我使用 Anki 筛选出了未来几天会复习到的单词强化背诵。此外，我还收集到了 300 个词左右的，一本属于我自己的难词表。</li>
+<li>沉浸阅读：配合 Anki 制卡插件，可以在阅读时一键查词，并将单词、正在阅读的句子和解释一并一键制卡。语境的力量无比强大。</li>
+<li>「可以用一辈子的记忆学习工具」：截止今天，我一共在在使用 Anki 软件的 58 天里，花了 49 小时，平均每天 41.7 分钟；一共看了 67911 张卡片，平均每天 956.5 张（包括回顾）。「我们会在48小时内忘记约75%的学习内容」，我们在期末备考花费大量的时间和精力，得到的知识却又在更快的忘却了。对终身学习者而言，信息的长期记忆是持续学习的基石，记忆方法的价值常常被我们低估。如果你也有同样的疑惑，Anki 可能也适合你。</li>
+</ul>
+<h3 id="rescuetime"><a class="header-anchor" href="#rescuetime" aria-hidden="true">#</a> RescueTime</h3>
+<p>记录在你的电脑和 Android 手机上使用各个软件，浏览各个网页的时间，并按各类应用计算出你的效率 Productivity。</p>
+<h2 id="附录"><a class="header-anchor" href="#附录" aria-hidden="true">#</a> 附录</h2>
+<p><a id="f1">1. </a> GRE 资料中还有我制作的「杨鹏_《新东方•GRE &amp; GMAT阅读难句教程》」等 ANKI 文件，也可以在 Anki 共享牌组中搜索到。</p>
+<p><a id="f2">2. </a> Anki 是一款开源、跨平台、拓展性强的记忆卡软件，你可以在这里看到介绍：</p>
+<ul>
+<li><a href="https://sspai.com/post/39951/" target="_blank" rel="noopener noreferrer">Anki 使用详解<OutboundLink/></a></li>
+<li><a href="https://lixingcong.github.io/2016/11/15/anki-doc/" target="_blank" rel="noopener noreferrer">Anki 理解笔记<OutboundLink/></a></li>
+</ul>
+]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Meet your customized alias domain email with Gmail, and Yandex is all you need]]></title>
+            <link>https://www.shawnxli.com/posts/meet-your-customized-alias-domain-email-with-gmail-and-yandex-is-all-you-need/</link>
+            <guid>https://www.shawnxli.com/posts/meet-your-customized-alias-domain-email-with-gmail-and-yandex-is-all-you-need/</guid>
+            <pubDate>Sat, 23 Feb 2019 10:45:12 GMT</pubDate>
+            <description><![CDATA[<p>📧 Customized Domain Email = Personal Branding + OpenWeb
+<!-- more --></p>
+<h2 id="why-would-you-need-a-domain-email"><a class="header-anchor" href="#why-would-you-need-a-domain-email" aria-hidden="true">#</a> Why would you need a domain email?</h2>
+<p>Surely there’re numerous out-of-the-box email service providers. Why would you want an email at your own domain? It is common for companies to have their unique email account, for branding and managing purposes. For people like you and me, domain email would help your personal branding, and more importantly the free to transfer between mail service providers. Domain email comes at zero price, yet paying tribute to the Open Web. I would use my <a href="shawnxli.com">shawnxli.com</a> and <a href="mailto:me@shawnxli.com">me@shawnxli.com</a> as an example throughout the passage.</p>
+<h2 id="why-yandex"><a class="header-anchor" href="#why-yandex" aria-hidden="true">#</a> Why Yandex?</h2>
+<p>Yandex is a Russian Google counterpart. Yandex Connect’s email service meets all my expectations: stable, secure, fast, ad-free, domain email, import/export data, email alias, mass storage, calendar, synchronize, push, IMAP, two-step/ two-factor verification, Yubikey, email forward and filtering… even for advanced security features like SPF, DKIM, DMARC support are all there. Offered at $0 for the individual.</p>
+<h2 id="_0-prerequisite"><a class="header-anchor" href="#_0-prerequisite" aria-hidden="true">#</a> 0. Prerequisite</h2>
+<ul>
+<li>A domain (I bought my domain from Tencent Cloud at the price of ~$15 for three years, available to transfer after 60 days.)</li>
+<li>Patience to follow the instructions</li>
+</ul>
+<h2 id="_1-acting-as-the-main-yandex-account"><a class="header-anchor" href="#_1-acting-as-the-main-yandex-account" aria-hidden="true">#</a> 1. Acting as the main Yandex Account</h2>
+<h3 id="_1-1-sign-up-the-main-yandex-account"><a class="header-anchor" href="#_1-1-sign-up-the-main-yandex-account" aria-hidden="true">#</a> 1.1. <a href="https://passport.yandex.com/registration" target="_blank" rel="noopener noreferrer">Sign-up the main Yandex Account<OutboundLink/></a></h3>
+<h3 id="_1-2-add-and-verify-your-domain"><a class="header-anchor" href="#_1-2-add-and-verify-your-domain" aria-hidden="true">#</a> 1.2. <a href="https://connect.yandex.com/portal/admin/domains" target="_blank" rel="noopener noreferrer">Add and verify your domain<OutboundLink/></a></h3>
+<p>First, add a DNS TXT record at your domain DNS service provider, delete when the domain is verified.</p>
+<p>Then add an <a href="https://connect.yandex.com/portal/admin/customization/dns" target="_blank" rel="noopener noreferrer">MX record<OutboundLink/></a> at your domain DNS service provider</p>
+<h3 id="_1-3-create-a-user-account"><a class="header-anchor" href="#_1-3-create-a-user-account" aria-hidden="true">#</a> 1.3. <a href="https://connect.yandex.com/portal/admin/structure" target="_blank" rel="noopener noreferrer">Create a user account<OutboundLink/></a></h3>
+<p>Taken my account for example:</p>
+<blockquote>
+<p>Email: me@shawnxli.com
+Department: All employees
+Grant admin rights (Optional)</p>
+</blockquote>
+<h3 id="_1-4-set-a-catch-all-address-routing"><a class="header-anchor" href="#_1-4-set-a-catch-all-address-routing" aria-hidden="true">#</a> 1.4. <a href="https://connect.yandex.com/portal/admin/customization/mail" target="_blank" rel="noopener noreferrer">Set a catch-all address routing<OutboundLink/></a></h3>
+<p>This is meant to redirect all the emails sent to invalid email addresses on your domain.</p>
+<h2 id="_2-acting-as-the-user-yandex-account"><a class="header-anchor" href="#_2-acting-as-the-user-yandex-account" aria-hidden="true">#</a> 2. Acting as the user Yandex account</h2>
+<h3 id="_2-1-log-in-the-user-account"><a class="header-anchor" href="#_2-1-log-in-the-user-account" aria-hidden="true">#</a> 2.1. <a href="http://mail.yandex.com/" target="_blank" rel="noopener noreferrer">Log-in the user account<OutboundLink/></a></h3>
+<ul>
+<li>
+<p><a href="https://mail.yandex.com/#setup/client" target="_blank" rel="noopener noreferrer">Enable IMAP and POP3<OutboundLink/></a> at:
+Mail → All settings → Email clients</p>
+</li>
+<li>
+<p><a href="http://connect.yandex.com/" target="_blank" rel="noopener noreferrer">You may also<OutboundLink/></a>:</p>
+<ul>
+<li>Enable app passwords</li>
+<li>Set up two-factor authentication</li>
+</ul>
+</li>
+</ul>
+<h2 id="_3-set-gmail-to-send-and-receive-email"><a class="header-anchor" href="#_3-set-gmail-to-send-and-receive-email" aria-hidden="true">#</a> 3. Set Gmail to send and receive email</h2>
+<ul>
+<li><a href="https://support.google.com/mail/answer/22370" target="_blank" rel="noopener noreferrer">Gmail → Accounts and import → “Send mail as”<OutboundLink/></a></li>
+</ul>
+<!--beforebegin--><div class="language- extra-class"><!--afterbegin--><pre v-pre class="language-text"><code>Mail server address: smtp.yandex.com
+Connection security: SSL
+Port: 465
+Account: your-account@your-domain.com
+Password: your-account-password or app-password
+</code></pre>
+<!--beforeend--></div><!--afterend--><ul>
+<li><a href="https://support.google.com/mail/answer/22370" target="_blank" rel="noopener noreferrer">Gmail → Accounts and import → “Import mail and contacts”<OutboundLink/></a></li>
+</ul>
+<!--beforebegin--><div class="language- extra-class"><!--afterbegin--><pre v-pre class="language-text"><code>Mail server address: pop.yandex.com
+Connection security: SSL
+Port: 995
+Account: your-account@your-domain.com
+Password: your-account-password or app-password
+</code></pre>
+<!--beforeend--></div><!--afterend--><p><a href="https://yandex.com/support/mail/mail-clients.html" target="_blank" rel="noopener noreferrer">Useful Resources<OutboundLink/></a></p>
+<h2 id="_4-optional-advanced-security-anti-spamming-setting"><a class="header-anchor" href="#_4-optional-advanced-security-anti-spamming-setting" aria-hidden="true">#</a> 4. (Optional) Advanced Security/ Anti-Spamming Setting</h2>
+<ul>
+<li>SPF (Not Recommended, <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html#SPFFormat" target="_blank" rel="noopener noreferrer">Why?<OutboundLink/></a>)</li>
+<li><a href="https://connect.yandex.com/portal/admin/customization/dns" target="_blank" rel="noopener noreferrer">DKIM, DMARC<OutboundLink/></a></li>
+</ul>
+<h2 id="references"><a class="header-anchor" href="#references" aria-hidden="true">#</a> References</h2>
+<ul>
+<li><a href="https://6ki.org/archives/53" target="_blank" rel="noopener noreferrer">https://6ki.org/archives/53<OutboundLink/></a></li>
+</ul>
+]]></description>
+        </item>
+        <item>
+            <title><![CDATA[No More Explicit process.env]]></title>
+            <link>https://www.shawnxli.com/posts/no-more-explict-process-env/</link>
+            <guid>https://www.shawnxli.com/posts/no-more-explict-process-env/</guid>
+            <pubDate>Fri, 07 Dec 2018 17:47:10 GMT</pubDate>
+            <description><![CDATA[<p>✨ 12 Factor-compliant config loader script for environment variable</p>
+<!-- more -->
+<p><a href="https://github.com/Maecenas/no-more-explict-process-env/" target="_blank"><img src="https://img.shields.io/github/stars/Maecenas/no-more-explict-process-env.svg?style=social" alt="GitHub stars"></img></a></p>
+<p>This article contains some code template that would elaborate you from the dull routine of adding <code>process.env ||</code> at the beginning of each Node.js configuration file. Following the <a href="https://12factor.net/config" target="_blank" rel="noopener noreferrer">12 Factor's config methodology<OutboundLink/></a>, configs are stored in the environment variable, while also be able to read from files for default setting/ bootstrapping, etc.</p>
+<h2 id="motivation"><a class="header-anchor" href="#motivation" aria-hidden="true">#</a> Motivation</h2>
+<p>The motivation of the project are from the <a href="https://github.com/ruanyf/es6tutorial/" target="_blank" rel="noopener noreferrer">ES6 tutorial<OutboundLink/></a> and <a href="https://github.com/Maecenas/smart-vis-backend" target="_blank" rel="noopener noreferrer">SmartVIS Back-End<OutboundLink/></a> project that I've been doing. I'm excited by the idea of using the ES6's <code>Proxy</code>, <code>Reflect</code> and <code>Symbol</code> feature to introduce an automatic environmental variable loader, without hampering how the rest of code is retrieving configs from file.</p>
+<!--beforebegin--><div class="language-javascript extra-class"><!--afterbegin--><pre v-pre class="language-javascript"><code><span class="token comment">// src/app.js</span>
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"../config"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<!--beforeend--></div><!--afterend--><h2 id="so…-what-it-s-like"><a class="header-anchor" href="#so…-what-it-s-like" aria-hidden="true">#</a> So… What it's like?</h2>
+<p>We want to keep it this way, and with 50 lines of code, the explicitly annoying <code>process.env</code> is now exempted from config implementation.</p>
+<!--beforebegin--><div class="language-javascript extra-class"><!--afterbegin--><pre v-pre class="language-javascript"><code><span class="token comment">// FROM: config.js (or config/index.js)</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token constant">PORT</span><span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">PORT</span> <span class="token operator">||</span> <span class="token number">3000</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  database<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token constant">HOST</span><span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">DATABASE_HOST</span> <span class="token operator">||</span> <span class="token string">"mysql"</span><span class="token punctuation">,</span>
+    <span class="token constant">PORT</span><span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">DATABASE_PORT</span> <span class="token operator">||</span> <span class="token string">"3306"</span><span class="token punctuation">,</span>
+    <span class="token constant">USER</span><span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">DATABASE_USER</span> <span class="token operator">||</span> <span class="token string">"example"</span><span class="token punctuation">,</span>
+    <span class="token constant">PASSWORD</span><span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">DATABASE_PASSWORD</span> <span class="token operator">||</span> <span class="token string">"example"</span><span class="token punctuation">,</span>
+    <span class="token constant">DATABASE</span><span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">DATABASE_DATABASE</span> <span class="token operator">||</span> <span class="token string">"example"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<!--beforeend--></div><!--afterend--><!--beforebegin--><div class="language-javascript extra-class"><!--afterbegin--><pre v-pre class="language-javascript"><code><span class="token comment">// TO: config/default.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token constant">PORT</span><span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  database<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token constant">HOST</span><span class="token punctuation">:</span> <span class="token string">"mysql"</span><span class="token punctuation">,</span>
+    <span class="token constant">PORT</span><span class="token punctuation">:</span> <span class="token string">"3306"</span><span class="token punctuation">,</span>
+    <span class="token constant">USER</span><span class="token punctuation">:</span> <span class="token string">"example"</span><span class="token punctuation">,</span>
+    <span class="token constant">PASSWORD</span><span class="token punctuation">:</span> <span class="token string">"example"</span><span class="token punctuation">,</span>
+    <span class="token constant">DATABASE</span><span class="token punctuation">:</span> <span class="token string">"example"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<!--beforeend--></div><!--afterend--><h2 id="intuition-and-installation"><a class="header-anchor" href="#intuition-and-installation" aria-hidden="true">#</a> Intuition and Installation</h2>
+<p>But how can we possibly achieve this? The answer is the magical <a href="https://github.com/Maecenas/no-more-explict-process-env/blob/master/config/index.js" target="_blank" rel="noopener noreferrer"><code>config/index.js</code><OutboundLink/></a> that I'm going to introduce to you. The intuition is quite clear and straight forward: whenever a client try to get a certain config, we first search for <code>process.env</code> and otherwise return the default value (<code>process.env.KEY || 'default_value'</code>). An extra key is required for configs of <code>process.env.SERVICE_FIELD</code> in order to store the previously called service. ES6's <code>Proxy</code>, <code>Reflect</code> and <code>Symbol</code> feature are required as to intercept the getter. You may check for implementation for more detail.</p>
+<p>To get the power of <a href="https://github.com/Maecenas/no-more-explict-process-env/" target="_blank" rel="noopener noreferrer"><code>no-more-explict-process-env</code><OutboundLink/></a>, just download the <a href="https://github.com/Maecenas/no-more-explict-process-env/blob/master/config/index.js" target="_blank" rel="noopener noreferrer"><code>config/index.js</code><OutboundLink/></a> and organized it like the templates, and enjoy!</p>
+<h2 id="show-me-the-code"><a class="header-anchor" href="#show-me-the-code" aria-hidden="true">#</a> Show me the code</h2>
+<!--beforebegin--><div class="language-javascript extra-class"><!--afterbegin--><pre v-pre class="language-javascript"><code><span class="token comment">/* eslint-disable no-process-env */</span>
+<span class="token string">"use strict"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"./default"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token constant">KEY</span> <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">isObject</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> value <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> value <span class="token operator">===</span> <span class="token string">"object"</span> <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">.</span>constructor <span class="token operator">===</span> Object<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">ProxyFactory</span><span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">/**
+   * Handler with getter to return env/value/Proxy&lt;-object when inspecting configs
+   *
+   * @type {{get}}
+   */</span>
+  <span class="token keyword">const</span> configHandler <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">get</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter">target<span class="token punctuation">,</span> key<span class="token punctuation">,</span> receiver</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token comment">// Concat to the matched name required for env</span>
+      <span class="token comment">// e.g. config.oss.sts.ROLE_ARN -> OSS_STS_ROLE_ARN</span>
+      <span class="token keyword">const</span> envName <span class="token operator">=</span> <span class="token punctuation">[</span>Reflect<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> <span class="token constant">KEY</span><span class="token punctuation">,</span> receiver<span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token punctuation">]</span>
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>Boolean<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">_</span> <span class="token operator">=></span> _<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">"_"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Return the environment variable if there is one</span>
+      <span class="token keyword">const</span> p <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">[</span>envName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> p<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// Get original value/object</span>
+      <span class="token keyword">const</span> o <span class="token operator">=</span> Reflect<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> key<span class="token punctuation">,</span> receiver<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Return the value/undefined</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isObject</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> o<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// Return ProxyFactory(obj) with new object appended with a Symbol key to store envName</span>
+      <span class="token keyword">return</span> <span class="token function">ProxyFactory</span><span class="token punctuation">(</span>
+        <span class="token punctuation">{</span>
+          <span class="token operator">...</span>o<span class="token punctuation">,</span>
+          <span class="token punctuation">[</span><span class="token constant">KEY</span><span class="token punctuation">]</span><span class="token punctuation">:</span> envName
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        configHandler
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Proxy</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> configHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Loader for environmental variable configs named after &lt;SERVICE_FIELD> if set else config
+ *
+ * @type {Proxy}
+ */</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">ProxyFactory</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<!--beforeend--></div><!--afterend-->]]></description>
+            <enclosure url="https://img.shields.io/github/stars/Maecenas/no-more-explict-process-env.svg?style=social">
+            </enclosure>
+        </item>
+        <item>
+            <title><![CDATA[MarginNote 理解笔记]]></title>
+            <link>https://www.shawnxli.com/posts/understanding-marginnote/</link>
+            <guid>https://www.shawnxli.com/posts/understanding-marginnote/</guid>
+            <pubDate>Tue, 04 Sep 2018 14:29:00 GMT</pubDate>
+            <description><![CDATA[<p>📒 读书工作流、方法论与学习闭环</p>
+<!-- more -->
+<p><img src="/marginnote-motivation.jpg" alt="“MarginNote”"></p>
+<p>👆 “MarginNote”, literally</p>
+<hr>
+<h2 id="marginnote-在-ipad-上提升学习效率，它可能是最合适的-pdf-阅读器"><a class="header-anchor" href="#marginnote-在-ipad-上提升学习效率，它可能是最合适的-pdf-阅读器" aria-hidden="true">#</a> <a href="https://sspai.com/post/38905" target="_blank" rel="noopener noreferrer">MarginNote - 在 iPad 上提升学习效率，它可能是最合适的 PDF 阅读器<OutboundLink/></a></h2>
+<ul>
+<li>如何使用 MarginNote</li>
+<li>MarginNote 提供的工具：批注（摘录）、大纲、思维导图、记忆卡</li>
+<li>MarginNote 工作流：书、笔记本、摘录</li>
+<li>PDF 结构化：[传统的] 书签、大纲、页码 🆚 [MarginNote] 摘录、大纲、思维导图、记忆卡（上下文）</li>
+<li>MarginNote 应用 - 复习考试：回忆模式</li>
+<li>扩展接口：Anki（学习卡）、OmniOutliner（大纲）、MindManager &amp; iThoughts（思维导图）、Evernote（导图、大纲、书）、MS Word（大纲）、DEVONthink（笔记）</li>
+</ul>
+<p>@路灯等灯等灯：</p>
+<blockquote>
+<p>除了用在课业学习上，marginnote对于我这种喜欢深入阅读，尤其是阅读论说类书籍的人来说，是神器一样的存在。</p>
+<p>《如何阅读一本书》践行分析阅读和主题阅读的平台，比纸质书还更好。</p>
+<p>阅读时打开侧边栏，随时对划线的重点句子的主旨进行提炼，并调整其在大纲中的层级与位置，这样就顺利的将一本书肢解，成为了直观的思维导图和大纲，并可以即刻跳转至该条笔记的出处，哪怕是来自不同的书。」</p>
+</blockquote>
+<hr>
+<h2 id="marginnote-pro-读书人的神器-知乎专栏"><a class="header-anchor" href="#marginnote-pro-读书人的神器-知乎专栏" aria-hidden="true">#</a> <a href="https://zhuanlan.zhihu.com/p/25392597" target="_blank" rel="noopener noreferrer">MarginNote Pro 读书人的神器 - 知乎专栏<OutboundLink/></a></h2>
+<p>阅读笔记流程：</p>
+<ol>
+<li>PDF Expert 标注，做大概的整理知识整理</li>
+<li>SimpleMind 思维脑图，知识图文化，用逻辑思维再梳理一遍，找出自己的逻辑</li>
+<li>OmniOutliner Pro 大纲，把知识结构化</li>
+</ol>
+<p>MarginNote Pro：标注，大纲，思维导图。完整工作流</p>
+<hr>
+<h2 id="marginnote-如此强大的笔记-app，每个人都该有-ios-mac-appso"><a class="header-anchor" href="#marginnote-如此强大的笔记-app，每个人都该有-ios-mac-appso" aria-hidden="true">#</a> <a href="http://www.ifanr.com/app/744135" target="_blank" rel="noopener noreferrer">MarginNote : 如此强大的笔记 App，每个人都该有 #iOS #Mac_AppSo<OutboundLink/></a></h2>
+<p>MarginNote Pro - 剪书, 批注, 重组, 快速的创建思维导图和记忆卡来复习
+http://v.youku.com/v_show/id_XMTc2NzgxMTc4MA==.html</p>
+<ul>
+<li>应用内搜索（in-depth search）</li>
+<li>下载网页（download as epub）</li>
+<li>epub 页边笔记（KJV）</li>
+</ul>
+<p>MarginNote 核心逻辑：</p>
+<ol>
+<li>标记、批注，都会被「剪藏」到一个笔记本，作为备用的笔记素材收集起来；</li>
+<li>这些笔记可以在页边、大纲列表、思维导图、学习卡集中不同的视图里自由切换；他们是联动的。</li>
+</ol>
+<p>「这种将不同思维空间连接起来的能力可以促进学习中的创造力和记忆，是纸书或其他电子工具无法做到的。」</p>
+<p>开发者 Sun Min 的使用思路：</p>
+<blockquote>
+<p>我的工作流一般是就某一个主题建一个笔记本，然后把这个主题下最棒的资料 PDF 拖进来，然后陆续把看到的网页通过 MarginNote 的 EPUB 转存功能也拖进来。
+在碎片的时间里把一片片摘录慢慢收集起来，然后有空再到思维导图和 Outline 里整理。最后用 Flashcards 回顾和记忆。
+除此之外，Min 也推荐了知乎网友 @山羊月 的分享：<a href="https://www.zhihu.com/question/43663694/answer/103097192" target="_blank" rel="noopener noreferrer">用 pdf 版看完大部头专著是怎样一种体验？<OutboundLink/></a> 以及 Einswell 的分享：<a href="https://www.zhihu.com/question/22678622/answer/121249367" target="_blank" rel="noopener noreferrer">iPad 上有哪些实用得令人惊艳的 App？<OutboundLink/></a></p>
+</blockquote>
+<p>MarginNote 为解决碎片知识重组的问题。就像洛克的索引系统一样，MarginNote 不仅能让读者快速地找要查询的笔记内容，还可以完成一个更高难度的任务，即促进读者思考与反思。AppSo 也认为，无论是深度学习还是多线程任务处理，人都可以凭借科技，到达新的高度。在混乱中建立新秩序，是我们必须学会的技能。</p>
+<p><a href="https://www.zhihu.com/question/43663694/answer/103097192" target="_blank" rel="noopener noreferrer">用 pdf 版看完大部头专著是怎样一种体验？_山羊月<OutboundLink/></a></p>
+<p>我们的阅读体验并不是来自于 PDF，而是来自于阅读 PDF 的软件。一个好的阅读软件给人带来的阅读体验和阅读效率的提升是多么显著。</p>
+<p>前期主要利用 Nvivo 来阅读 PDF，这个工具应该被很多人熟知，是做质性研究编码的一个主要软件。但是国外很多人用 Nvivo 来读 PDF，因为它具备很好的信息整理，归类，思维导图建立等功能，是做文献综述的大杀器。简而言之，你可以把不同 PDF 文件上的信息归为一个个节点，每一个节点代表一个知识元，以后你每一次需要用到这个知识元的时候，只需要打开它，你之前整理的所有相关论文里的信息全部都在里面，轻轻一点自动跳转到 PDF 的段落。你还可以导入语音，视频，截图，笔记等各类文件，同时用思维导图来整理这些知识元，构建二级甚至三级知识网络。</p>
+<p>在论文阅读过程中建立思维导图整理逻辑联系的重要性</p>
+<p>同时这个软件也有缺陷。Marginnote标注的PDF和笔记似乎没法被其他PDF软件读取。同时 Marginnote 的UI设计有些丑不说，很多界面和功能的引导做的不好，学习曲线比较高。当然，Nvivo可能更高。最后，Marginnote还存在很多 Bug，目前正在等待下一个大版本更新，后续功能会进一步加强。</p>
+<p>最后，我个人的理解是：处在当今这么一个知识爆炸的时代，对于信息的整理，对于软件的学习，实际上是科研能力的一个重要组成部分。而我们中国学生对这种能力的训练和思考远远不如西方国家的学生。我们甚至都没有建立起利用软件进行高效的信息整理和利用的意识。非常可怕的是，我们的信息整理和利用的意识还系统性的停留在对于「书本」和「笔记」实体的迷信阶段。这种实体诚然具有一定的优势，但却完全无法阻挡科技进步的脚步。我们的意识如果不更新，我们终有一天会发现我们自己信息整理和利用的效率远远落后于其他国家的学生，而这种落后导致的后果，就是信息壁垒，就是科技壁垒，就是发展壁垒。</p>
+<p>一个工具如果不好用就不会被广泛接受；它被广泛接受也并不代表它就对你好用。</p>
+<hr>
+<h2 id="ipad-上有哪些实用得令人惊艳的-app？"><a class="header-anchor" href="#ipad-上有哪些实用得令人惊艳的-app？" aria-hidden="true">#</a> <a href="https://www.zhihu.com/question/22678622/answer/121249367" target="_blank" rel="noopener noreferrer">iPad 上有哪些实用得令人惊艳的 App？<OutboundLink/></a></h2>
+<ul>
+<li>详细介绍了 MarginNote 的使用操作</li>
+</ul>
+<hr>
+<h2 id="mn-anki天生cp，完美的学习闭环"><a class="header-anchor" href="#mn-anki天生cp，完美的学习闭环" aria-hidden="true">#</a> <a href="http://www.jianshu.com/p/bef8270da09a" target="_blank" rel="noopener noreferrer">MN&amp;Anki天生CP，完美的学习闭环<OutboundLink/></a></h2>
+<ul>
+<li>介绍 MarginNote 和 Anki 的协作场景</li>
+<li>分享 iPad Pro 的使用体验</li>
+</ul>
+<hr>
+<h2 id="忙碌时代的读书方法-汪丁丁的想法-知乎"><a class="header-anchor" href="#忙碌时代的读书方法-汪丁丁的想法-知乎" aria-hidden="true">#</a> <a href="https://www.zhihu.com/pin/980038458768809984" target="_blank" rel="noopener noreferrer">忙碌时代的读书方法 - 汪丁丁的想法 - 知乎<OutboundLink/></a></h2>
+<p><img src="/marginnote-example-and-export.jpg" alt="MarginNote example and export"></p>
+<p>忙碌时代的读书方法，今天我介绍晚近几个月我使用的一种新的阅读技术，我认为超过目前流传的那些。文献存多了，每一位学者都要建立自己的更好用的检索和阅读方法。我喜欢跨学科研究方法，围绕同一主题同时阅读许多文献。或许我尝试的几十种同类阅读软件里，这一款最佳。</p>
+<p>我还没有挑战它的存书极限，应当不会太大，因为每次阅读任何一本书必须保存许多信息。</p>
+<p>阅读时它自动保存的思维导图。使用笔记工具，每次需要标出重要段落，用矩形框出相关段落，可以跨页，可以无限延伸，这时，左栏就出现矩形之内的文字。我试过，输出笔记为PDF格式之后，可放大八倍，通常够用。这些矩形之间的关系，完全由你的思路决定。我习惯于将一本书的核心思路相互联结成一张图，然后就不再读这本书，只看图即可回忆书的细节。虽然文档很大，但日积月累，同一主题的不同文献阅读笔记，可合并为一本丁丁笔记，优势明显！</p>
+<hr>
+<h2 id="行为经济学心智地图-汪丁丁的想法-知乎"><a class="header-anchor" href="#行为经济学心智地图-汪丁丁的想法-知乎" aria-hidden="true">#</a> <a href="https://www.zhihu.com/pin/968748348639023104" target="_blank" rel="noopener noreferrer">行为经济学心智地图 - 汪丁丁的想法 - 知乎<OutboundLink/></a></h2>
+<p><img src="/marginnote-behavioral-economics-mindmap.jpg" alt="MarginNote in the wild - 行为经济学心智地图"></p>
+]]></description>
+            <enclosure url="https://www.shawnxli.com/marginnote-motivation.jpg">
+            </enclosure>
+        </item>
+    </channel>
+</rss>
