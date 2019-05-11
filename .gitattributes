@@ -1,0 +1,3 @@
+# Override github/linguist
+docs/* linguist-documentation=false
+*.md linguist-detectable=true
